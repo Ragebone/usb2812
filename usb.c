@@ -46,8 +46,9 @@ void USB_Init()
 {
 	USBInitState = -1;
 	USBCON = (1<<USBE)|(1<<FRZCLK); //USB "Freeze" (And enable)
-	REGCR = 0; //enable regulator.
-	PLLCSR = (1<<PLLE)|(1<<PLLP0); //PLL Config
+	//REGCR = 0; //enable regulator.  replace with (*(volatile uint8_t*)(0x63))
+	PLLCSR = (1<<PLLE)|(1<<2); //PLL Config PLLP0 = 2
+
         while (!(PLLCSR & (1<<PLOCK)));	// wait for PLL lock
 	USBCON = 1<<USBE; //Unfreeze USB
         UDCON = 0;// enable attach resistor (go on bus)
