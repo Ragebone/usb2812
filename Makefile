@@ -5,7 +5,7 @@ OBJS = test.o usb.o SPIPrinting.o
 SRCS = test.c usb.c SPIPrinting.c
 
 PROCESSOR=atmega8u2
-PROGRAMCODE=m8u2
+PROGRAMCODE=atmega32u4
 CFLAGS = -Wall -Os -mmcu=$(PROCESSOR) -DF_CPU=16000000UL -I. -Iusbdrv
 ASFLAGS = $(CFLAGS) -x assembler-with-cpp
 
@@ -19,14 +19,14 @@ program.lst : $(SRCS)
 	avr-gcc -c -g -Wa,-a,-ad $(CFLAGS) $^ > $@
 
 burn : program.hex
-	avrdude -c usbtiny -p $(PROGRAMCODE) -U flash:w:program.hex -F
+	avrdude  -U flash:w:program.hex -F -v -patmega32u4 -cavr109 -P/dev/ttyACM0 -b57600 -D
 
 
 readfuses :
-	avrdude -c usbtiny -p $(PROGRAMCODE) -U hfuse:r:high.txt:b -U lfuse:r:low.txt:b
+	avrdude -U hfuse:r:high.txt:b -U lfuse:r:low.txt:b -v -patmega32u4 -cavr109 -P/dev/ttyACM0 -b57600 -D
 
 burnfuses :
-	avrdude -c usbtiny -p $(PROGRAMCODE) -U lfuse:w:0xEE:m -U hfuse:w:0xD9:m -U efuse:w:0xCC:m
+	avrdude -U lfuse:w:0xEE:m -U hfuse:w:0xD9:m -U efuse:w:0xCC:m -v -patmega32u4 -cavr109 -P/dev/ttyACM0 -b57600 -D
 #Setup clock / Disable hardware booter - we want the SPI Programmer only!
 
 clean : 
