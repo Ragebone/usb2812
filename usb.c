@@ -46,8 +46,8 @@ void USB_Init()
 {
 	USBInitState = -1;
 	USBCON = (1<<USBE)|(1<<FRZCLK); //USB "Freeze" (And enable)
-	//REGCR = 0; //enable regulator.  replace with (*(volatile uint8_t*)(0x63))
-	PLLCSR = (1<<PLLE)|(1<<2); //PLL Config PLLP0 = 2
+	//REGCR = 0; //enable regulator.  Done in Hardware on the u4
+	PLLCSR = (1<<PLLE)|(1<<PINDIV); //PLL Config PLLP0 for u2, PINDIV for u4
 
         while (!(PLLCSR & (1<<PLOCK)));	// wait for PLL lock
 	USBCON = 1<<USBE; //Unfreeze USB
