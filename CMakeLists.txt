@@ -30,8 +30,8 @@ add_executable(usb2812 test.c usb.c SPIPrinting.c avrUsbUtils.c)
 
 #ADD_CUSTOM_COMMAND(TARGET ${PROJECT_NAME} POST_BUILD COMMAND avr-objcopy -O ihex -R.eeprom ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}.hex)
 ADD_CUSTOM_COMMAND(TARGET ${PROJECT_NAME} POST_BUILD COMMAND avrdude  -U flash:w:${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}.hex -F -v -patmega32u4 -cavr109 -P/dev/ttyACM0 -b57600 -D)
-ADD_CUSTOM_COMMAND(TARGET ${PROJECT_NAME} POST_BUILD COMMAND avrdude -U hfuse:r:high.txt:b -U lfuse:r:low.txt:b -v -patmega32u4 -cavr109 -P/dev/ttyACM0 -b57600 -D)
-ADD_CUSTOM_COMMAND(TARGET ${PROJECT_NAME} POST_BUILD COMMAND 	avrdude -U lfuse:w:0xEE:m -U hfuse:w:0xD9:m -U efuse:w:0xCC:m -v -patmega32u4 -cavr109 -P/dev/ttyACM0 -b57600 -D)
+#ADD_CUSTOM_COMMAND(TARGET ${PROJECT_NAME} POST_BUILD COMMAND avrdude -U hfuse:r:high.txt:b -U lfuse:r:low.txt:b -v -patmega32u4 -cavr109 -P/dev/ttyACM0 -b57600 -D)
+#ADD_CUSTOM_COMMAND(TARGET ${PROJECT_NAME} POST_BUILD COMMAND 	avrdude -U lfuse:w:0xEE:m -U hfuse:w:0xD9:m -U efuse:w:0xCC:m -v -patmega32u4 -cavr109 -P/dev/ttyACM0 -b57600 -D)
 
 #ADD_CUSTOM_COMMAND(TARGET ${PROJECT_NAME} POST_BUILD COMMAND avr-objcopy -O ihex -j .eeprom --set-section-flags=.eeprom="alloc,load"  --change-section-lma .eeprom=0 ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}.eep)
 #ADD_CUSTOM_COMMAND(TARGET ${PROJECT_NAME} POST_BUILD COMMAND avr-size ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME} --mcu=${DEVICE} --format=avr)
