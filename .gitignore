@@ -1,2 +1,16 @@
 
 \.idea/
+
+*.o
+
+cmake-build-debug/
+
+bin/
+
+*.elf
+
+*.hex
+
+*.lst
+
+*.map
